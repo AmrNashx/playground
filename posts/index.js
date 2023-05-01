@@ -4,7 +4,7 @@ const fs = require("node:fs/promises");
 const express = require("express");
 const app = express();
 
-const POSTS_PATH = path.join(__dirname, "posts.json");
+const POSTS_PATH = path.resolve(__dirname, "../posts.json");
 app.use(express.json());
 app.get("/posts", async (req, res) => {
   try {
@@ -32,5 +32,5 @@ app.post("/posts", async (req, res) => {
   }
 });
 app.listen(4000, () => {
-  console.log("postes-service is up and running on port 4000");
+  console.log("poss-service is up and running on port 4000");
 });

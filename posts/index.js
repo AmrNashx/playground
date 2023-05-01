@@ -3,14 +3,17 @@ const path = require("node:path");
 const fs = require("node:fs/promises");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const POSTS_PATH = path.resolve(__dirname, "../posts.json");
+
 app.use(express.json());
+app.use(cors());
 app.get("/posts", async (req, res) => {
   try {
     const result = await fs.readFile(POSTS_PATH);
     const posts = JSON.parse(result.toString());
-    res.json(posts);
+    return res.json({ posts });
   } catch (error) {
     console.log(error);
   }
@@ -26,7 +29,7 @@ app.post("/posts", async (req, res) => {
       title,
     };
     fs.writeFile(POSTS_PATH, JSON.stringify(storedPosts));
-    res.json(storedPosts[id]);
+    return res.json(storedPosts[id]);
   } catch (error) {
     console.log(error);
   }

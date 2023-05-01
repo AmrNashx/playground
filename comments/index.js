@@ -3,16 +3,19 @@ const path = require("node:path");
 const fs = require("node:fs/promises");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const COMMENTS_PATH = path.resolve(__dirname, "../comments.json");
+
 app.use(express.json());
+app.use(cors());
 
 app.get("/posts/:id/comments", async (req, res) => {
   try {
     const postId = req.params.id;
     const result = await fs.readFile(COMMENTS_PATH);
-    const comments = JSON.parse(result.toString());
-    res.json(comments[postId]);
+    const storedComments = JSON.parse(result.toString());
+    return res.json({ comments: storedComments[postId] });
   } catch (error) {
     console.log(error);
   }

@@ -8,19 +8,22 @@ const CommentList = ({ postId }) => {
     const res = await axios.get(
       `http://localhost:4001/posts/${postId}/comments`
     );
-
-    setComments(res.data);
+    setComments(res.data.comments);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const renderedComments = comments.map((comment) => {
-    return <li key={comment.id}>{comment.content}</li>;
-  });
-
-  return <ul>{renderedComments}</ul>;
+  return (
+    <>
+      <ul>
+        {comments.map((comment) => {
+          return <li key={comment.id}>{comment.content}</li>;
+        })}
+      </ul>
+    </>
+  );
 };
 
 export default CommentList;

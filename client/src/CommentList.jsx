@@ -13,14 +13,15 @@ const CommentList = ({ postId }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [comments]);
 
   return (
     <>
       <ul>
-        {comments.map((comment) => {
-          return <li key={comment.id}>{comment.content}</li>;
-        })}
+        {comments &&
+          comments.map((comment) => {
+            return <li key={comment.id}>{comment.content}</li>;
+          })}
       </ul>
     </>
   );

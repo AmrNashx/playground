@@ -11,8 +11,9 @@ const PostList = () => {
     setPosts(res.data.posts);
   };
 
-  useEffect(async () => {
-    await fetchPosts();
+  useEffect(() => {
+    fetchPosts();
+    console.log(posts);
   }, []);
 
   const renderedPosts = Object.values(posts).map((post) => {

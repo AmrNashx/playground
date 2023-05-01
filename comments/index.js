@@ -22,13 +22,13 @@ app.get("/posts/:id/comments", async (req, res) => {
 });
 app.post("/posts/:id/comments", async (req, res) => {
   try {
-    const title = req.body.title;
+    const content = req.body.content;
     const id = randomBytes(4).toString("hex");
     const postId = req.params.id;
     const storedCommentsJSON = await fs.readFile(COMMENTS_PATH);
     const storedComments = JSON.parse(storedCommentsJSON);
-    let newComment = { id, title };
-    if (storedComments[postId]) storedComments.push(newComment);
+    let newComment = { id, content };
+    if (storedComments[postId]) storedComments[postId].push(newComment);
     else {
       storedComments[postId] = [];
       storedComments[postId].push(newComment);
